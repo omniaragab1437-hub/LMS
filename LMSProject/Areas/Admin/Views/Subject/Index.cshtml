@@ -1,0 +1,95 @@
+﻿@using MLSCore.Models
+@model List<TbSubject>
+
+@{
+    ViewData["Title"] = "Stage-List";
+}
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Subject List</h4>
+            <p class="card-description">
+                Add Subject <code><a asp-controller="Subject" asp-action="Create">.Add New</a></code>
+            </p>
+            <table class="table table-striped">
+                <tr>
+                    <th>Image</th>
+                    <th>Subject</th>
+                    <th>Created By</th>
+                    <th>Current State</th>
+                    
+                    <th>Action</th>
+                </tr>
+                @foreach (var subject in Model)
+                {
+                    <tr>
+                        <td><img src="~/@subject.ImageName" width="100px" /></td>
+         
+                        <td>@subject.Name</td>
+                        <td>@subject.CreatedBy</td>
+                        <td><input type="checkbox" checked="@subject.CurrentState"></td>
+                        <td>
+                            <!-- <a class="badge badge-success" asp-action="Details" asp-route-id="@subject.Id">Details</a>-->
+                            <a class="badge badge-info" asp-action="Edit" asp-route-id="@subject.Id">Edit</a>
+                            <button class="badge badge-danger" onclick="showSwal('@subject.Id','Subject');">Delete</button>
+S                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <script src="~/Admin/assets/vendors/sweetalert/sweetalert.min.js"></script>
+        <script src="~/Admin/assets/vendors/jquery.avgrund/jquery.avgrund.min.js"></script>
+        <script src="~/Admin/assets/js/alerts.js"></script>
+        <script src="~/Admin/assets/js/avgrund.js"></script>
+        <script>
+            (function ($) {
+                showSwal = function (type,url) {
+                    alert(type);
+                    'use strict';
+                    swal({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3f51b5',
+                        cancelButtonColor: '#ff4081',
+                        confirmButtonText: 'Great ',
+                        buttons: {
+                            cancel: {
+                                text: "Cancel",
+                                value: null,
+                                visible: true,
+                                className: "btn btn-danger",
+                                closeModal: true,
+                            },
+                            confirm: {
+                                text: "OK",
+                                value: true,
+                                visible: true,
+                                className: "btn btn-primary",
+                                closeModal: true
+                            }
+                        }
+                    }).then(function (isConfirm) {
+                                if (isConfirm) {alert('?Id=' + type);
+                             window.location.href = '@Url.Action("Delete", "Subject")?Id=' + type;
+                        
+                        } else {
+                            swal("Cancelled", "Your imaginary file is safe :)", "error");
+                        }
+                    })
+
+
+                }
+
+            })(jQuery);
+        </script>
+    }
+
+    <!-- End custom js for this page -->
+}
