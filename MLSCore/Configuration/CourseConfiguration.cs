@@ -14,7 +14,7 @@ namespace MLSCore.Configuration
             builder.Property(a => a.CurrentState).HasDefaultValue(1);
             builder.Property(a => a.ImageName).HasDefaultValue(ProjConst.DefaulImage).HasMaxLength(100);
             builder.Property(a => a.CreatedDate).HasDefaultValueSql("GETDATE()");
-          //  builder.Property(a => a.Rating).HasDefaultValue(0);
+            builder.Property(a => a.Rating).HasDefaultValue(0);
            
         }
     }

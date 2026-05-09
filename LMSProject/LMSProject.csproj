@@ -9,18 +9,17 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="16.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.6">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Instructor\Helpers\" />
     <Folder Include="Areas\Instructor\Models\" />
     <Folder Include="Areas\Instructor\Views\Home\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
     <Folder Include="wwwroot\Images\images\" />
   </ItemGroup>

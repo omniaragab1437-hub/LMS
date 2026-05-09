@@ -2,22 +2,26 @@
 using LMSProject.Areas.Admin.Helpers;
 using LMSProject.Areas.Admin.ViewModel;
 using LMSProject.Areas.Instructor.ViewModel;
+using LMSProject.Controllers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MLSCore;
+using MLSCore.IdentityModel;
 using MLSCore.Models;
 
 namespace LMSProject.Areas.Instructor.Controllers
 {
     [Area("Instructor")]
 
-    public class CourseController : Controller
+    public class CourseController : BaseController
     {
         int Instructorid = 1;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public CourseController(IUnitOfWork unitOfWork, IMapper mapper)
-        {
+        public CourseController(IUnitOfWork unitOfWork, IMapper mapper,UserManager<ApplicationUser> userManager)
+        : base(userManager)
+        { 
             _unitOfWork = unitOfWork;
             _mapper = mapper;
 
@@ -71,6 +75,11 @@ namespace LMSProject.Areas.Instructor.Controllers
                 }
 
                 TbCourse course = _mapper.Map<TbCourse>(courseVM);
+                //----------------------get instructor ID
+               // var userId = CurrentUserId;
+              //  var IstructorId
+
+
                 await _unitOfWork.Courses.AddAsync(course);
 
                 _unitOfWork.Complete();

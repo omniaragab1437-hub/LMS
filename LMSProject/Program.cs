@@ -26,7 +26,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(Options =>
     .AddDefaultTokenProviders();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IInstructorRepository, InstructorRepository>();
-
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromDays(7); 
+});
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
 
@@ -48,9 +51,12 @@ app.UseAuthorization();
 app.MapStaticAssets();
 
 app.MapControllerRoute(
-    name: "Admin",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}")
-    .WithStaticAssets();
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 

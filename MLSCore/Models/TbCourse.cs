@@ -12,7 +12,7 @@ namespace MLSCore.Models
         [MaxLength(100)]
         public string Name { get; set; }
         public CourseStatus status { get; set; }
-        public double? Rating { get; set; }
+        public double Rating { get; set; }
         public double Price {  get; set; }
         public string? CreatedBy { get; set; } = null!;
         public DateTime? CreatedDate { get; set; }

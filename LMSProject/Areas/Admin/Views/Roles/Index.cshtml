@@ -33,7 +33,7 @@ cursor: not-allowed !important;
                         <td>@role.Name</td>
                         <td>
                             @{
-                                var isAllowed = role.Name == "Admin" || role.Name == "Instructor";
+                                    var isAllowed = role.Name == "Admin" || role.Name == "Instructor" || role.Name == "Student";
                             
                             <a class="badge badge-info @(isAllowed ? "disabled-link" : "")" asp-action="Edit" asp-route-id="@role.Name">Edit</a>
                                     <button class="badge badge-danger @(isAllowed ? "disabled-link" : "")" onclick="showSwal('@role.Id','Roles');">Delete</button>

@@ -1,4 +1,6 @@
-﻿namespace MLSCore.Models
+﻿using MLSCore.IdentityModel;
+
+namespace MLSCore.Models
 {
     public class TbStudent
     {
@@ -7,11 +9,12 @@
         // public string UserId { get; set; } // FK to AspNetUsers
         public string FullName { get; set; }
         public string ParentMobile { get; set; }
+        public string ParentNationalId {  get; set; }
         public string? CreatedBy { get; set; } = null!;
         public DateTime? CreatedDate { get; set; }
         public int CurrentState { get; set; }
         public string ImageName { get; set; } = null!;
-        public bool ShowInHomePage { get; set; }
+       
         public string? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
 
@@ -20,6 +23,9 @@
         public int GradeId { get; set; }
         public TbGrade Grade { get; set; }
 
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
         public List<TbStudentCourse> StudentCourses { get; set; }
         public List<TbStudentTest> StudentTests { get; set; }
         public List<TbSessionAttend> Sessions {  get; set; }
