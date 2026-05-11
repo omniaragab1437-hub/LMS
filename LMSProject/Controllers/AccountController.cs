@@ -96,8 +96,20 @@ namespace LMSProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _usermanager.FindByEmailAsync(model.EmailOrUsername);
+
+                if (user == null)
+                {
+                    user = await _usermanager.FindByNameAsync(model.EmailOrUsername);
+                }
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Invalid Login");
+                    return View(model);
+                }
+                
                 var result = await _signInManager.PasswordSignInAsync(
-                    model.EmailOrUsername,
+                    user.UserName,
                     model.Password,
                     model.RememberMe, 
                     false
@@ -105,6 +117,27 @@ namespace LMSProject.Controllers
 
                 if (result.Succeeded)
                 {
+                    if (await _usermanager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return RedirectToAction
+                        (
+                            "Index",
+                            "Home",
+                            new { area = "Admin" }
+                        );
+                    }
+
+                    if (await _usermanager.IsInRoleAsync(user, "Instructor"))
+                    {
+                        return RedirectToAction
+                        (
+                            "Index",
+                            "Home",
+                            new { area = "Instructor" }
+                        );
+                    }
+
+                    // Default Redirect
                     return RedirectToAction("Index", "Home");
                 }
 

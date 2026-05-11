@@ -25,14 +25,14 @@
                     <tr>
                         <td><img src="~/@course.ImageName" width="100px" /></td>
                         <td>@course.Name</td>
-                        <td>@course.CreatedBy</td>
+                       
                         <td><input type="checkbox" checked="@course.CurrentState"></td>
            
                         <td>
                              <a class="badge badge-success" asp-action="Details" asp-route-id="@course.Id">Details</a>
                             <a class="badge badge-info" asp-action="Edit" asp-route-id="@course.Id">Edit</a>
-                            <button class="badge badge-danger" onclick="showSwal('@course.Id','Course');">Delete</button>
                             
+                            <button class="badge badge-danger" onclick="showSwal('@course.Id','Course');">Delete</button>
                         </td>
                     </tr>
                 }
@@ -55,7 +55,7 @@
                     swal({
                         title: 'Are you sure?',
                         text: "You won't be able to revert this!",
-                        icon: 'warning',,yu
+                        icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3f51b5',
                         cancelButtonColor: '#ff4081',
@@ -78,7 +78,7 @@
                         }
                     }).then(function (isConfirm) {
                                 if (isConfirm) {alert('?Id=' + type);
-                             window.location.href = '@Url.Action("Delete", "Courseu ")?Id=' + type;
+                             window.location.href = '@Url.Action("Delete", "Course")?Id=' + type;
                         
                         } else {
                             swal("Cancelled", "Your imaginary file is safe :)", "error");

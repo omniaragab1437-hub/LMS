@@ -45,6 +45,7 @@ namespace MLSCore.Models
         public List<TbCourseReview> CourseReviews { get; set; }
         public List<TbCourseDiscount> Discounts { get; set; }
         public List<TbCourseContent> CourseContents { get; set; }
+        public List<TbCourseGroup> CourseGroups { get; set; }
 
     }
 }

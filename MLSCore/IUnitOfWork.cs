@@ -32,6 +32,9 @@ namespace MLSCore
         public  IBaseRepository<TbTerm> Terms { get; }
         public  IBaseRepository<TbTest> Tests { get; }
         public  IBaseRepository<TbTestQuestion> TestQuestions { get; }
+        public IBaseRepository<TbCourseGroup> CourseGroups { get; }
+        public IBaseRepository<TbGroupSchedule> GroupSchedules { get; }
+
         //     IBookRepository Books { get; }
 
         int Complete();
