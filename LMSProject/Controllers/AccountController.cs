@@ -17,7 +17,7 @@ namespace LMSProject.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AccountController(IMapper mapper, IUnitOfWork unitOfWork,UserManager<ApplicationUser> usermanager,
+        public AccountController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<ApplicationUser> usermanager,
                                  SignInManager<ApplicationUser> signInManager)
         {
             _usermanager = usermanager;
@@ -63,12 +63,12 @@ namespace LMSProject.Controllers
                     }
                     TbStudent student = new TbStudent()
                     {
-                       
+
                         FullName = model.FullName,
                         GradeId = model.GradeId,
                         UserId = user.Id,
-                        ParentMobile=model.ParentMobile,
-                        ParentNationalId=model.ParentNationalId,
+                        ParentMobile = model.ParentMobile,
+                        ParentNationalId = model.ParentNationalId,
                         ImageName = model.ImageName
                     };
                     await _unitOfWork.Students.AddAsync(student);
@@ -104,7 +104,28 @@ namespace LMSProject.Controllers
                 // If not found by email, try by username
                 if (user == null)
                 {
-                    user = await _usermanager.FindByNameAsync(model.EmailOrUsername);
+                    if (await _usermanager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return RedirectToAction
+                        (
+                            "Index",
+                            "Home",
+                            new { area = "Admin" }
+                        );
+                    }
+
+                    if (await _usermanager.IsInRoleAsync(user, "Instructor"))
+                    {
+                        return RedirectToAction
+                        (
+                            "Index",
+                            "Home",
+                            new { area = "Instructor" }
+                        );
+                    }
+
+                    // Default Redirect
+                    return RedirectToAction("Index", "Home");
                 }
 
                 if (user != null)

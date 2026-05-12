@@ -32,8 +32,8 @@ namespace LMSProject.Areas.Instructor.ViewModel
         public CourseStatus Status { get; set; }
         public int TermId { get; set; }
         public int GradeId { get; set; }
-        public int SubSubjId { get; set; }
-        public int InstructorId { get; set; }
+        public int SubjId {  get; set; }
+        public int SubSubjId { get; set; }     
 
         public double Price { get; set; }
         public string? UpdatedBy { get; set; } = "Admin";

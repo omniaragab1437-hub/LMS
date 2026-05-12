@@ -34,6 +34,10 @@ namespace LMSProject.Areas.Admin.Helpers
             CreateMap<CourseVM, TbCourse>();
             CreateMap<CourseEditVM, TbCourse>();
             CreateMap<TbCourse, CourseEditVM>();
+            //-----------------course groups
+            CreateMap<CourseGroupVM, TbCourseGroup>();
+            CreateMap<CourseGroupEditVM, TbCourseGroup>();
+            CreateMap<TbCourseGroup, CourseGroupEditVM>();
 
 
         }

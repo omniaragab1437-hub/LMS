@@ -34,8 +34,10 @@ namespace MLSEF
          public  IBaseRepository<TbTerm> Terms { get; private set; }
          public  IBaseRepository<TbTest> Tests { get; private set; }
          public  IBaseRepository<TbTestQuestion> TestQuestions { get; private set; }
+        public IBaseRepository<TbCourseGroup> CourseGroups { get; private set; }
+        public IBaseRepository<TbGroupSchedule> GroupSchedules { get; private set; }
         //       public IBookRepository Books { get; private set; }
-        
+
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -62,6 +64,8 @@ namespace MLSEF
             Terms = new BaseRepository<TbTerm>(_context);
             Tests = new BaseRepository<TbTest>(_context);
             TestQuestions = new BaseRepository<TbTestQuestion>(_context);
+            CourseGroups= new BaseRepository<TbCourseGroup>(_context);
+            GroupSchedules= new BaseRepository<TbGroupSchedule>(_context);
             //       Authors = new BaseRepository<Author>(_context);
             // Books = new BaseRepository<Book>(_context);
             //        Books = new BookRepository(_context);
