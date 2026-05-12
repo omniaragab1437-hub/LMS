@@ -15,6 +15,12 @@ namespace MLSCore.Configuration
             builder.Property(a => a.ImageName).HasDefaultValue(ProjConst.UserImage).HasMaxLength(100);
             builder.Property(a => a.CreatedDate).HasDefaultValueSql("GETDATE()");
 
+            // Foreign key to Parent (optional, as per nullable ParentId)
+            builder.HasOne(s => s.Parent)
+                .WithMany(p => p.Children)
+                .HasForeignKey(s => s.ParentId)
+                .OnDelete(DeleteBehavior.SetNull);
+
         }
     }
 }

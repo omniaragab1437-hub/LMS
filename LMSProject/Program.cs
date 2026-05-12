@@ -8,6 +8,8 @@ using MLSCore.IdentityModel;
 using LMSProject.Areas.Admin.Helpers;
 using MLSCore.Interfaces;
 using MLSEF.Repositories;
+//using LMSProject.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -26,6 +28,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(Options =>
     .AddDefaultTokenProviders();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IInstructorRepository, InstructorRepository>();
+//builder.Services.AddScoped<IRoleInitializationService, RoleInitializationService>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.ExpireTimeSpan = TimeSpan.FromDays(7); 
@@ -34,6 +37,13 @@ builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
 
 var app = builder.Build();
+
+// Initialize roles and default SuperAdmin
+using (var scope = app.Services.CreateScope())
+{
+    //var roleInitializationService = scope.ServiceProvider.GetRequiredService<IRoleInitializationService>();
+    //await roleInitializationService.InitializeRolesAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

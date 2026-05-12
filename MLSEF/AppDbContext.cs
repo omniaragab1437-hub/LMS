@@ -6,9 +6,10 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using MLSCore.IdentityModel;
 namespace MLSEF
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -37,13 +38,18 @@ namespace MLSEF
 
             new ReviewConfiguration().Configure(modelBuilder.Entity<TbCourseReview>());
             new SbContentConfiguration().Configure(modelBuilder.Entity<TbSubContent>());
-         
+
 
             new StudentConfiguration().Configure(modelBuilder.Entity<TbStudent>());
 
             new SubjectConfiguration().Configure(modelBuilder.Entity<TbSubject>());
             new SubSubjectConfiguration().Configure(modelBuilder.Entity<TbSubSubject>());
             new TermConfiguration().Configure(modelBuilder.Entity<TbTerm>());
+
+            // New configurations for Parent, ParentStudent, and Announcement entities
+            new ParentConfiguration().Configure(modelBuilder.Entity<TbParent>());
+            new AnnouncementConfiguration().Configure(modelBuilder.Entity<TbAnnouncement>());
+
             modelBuilder.Entity<IdentityPasskeyData>().HasNoKey();
             base.OnModelCreating(modelBuilder);
             foreach (var foreignKey in modelBuilder.Model
@@ -59,18 +65,18 @@ namespace MLSEF
         public DbSet<TbCourse> Courses { get; set; }
         public DbSet<TbCourseContent> CourseContents { get; set; }
         public DbSet<TbCourseDiscount> CourseDiscounts { get; set; }
-        public DbSet<TbCourseReview> CourseReviews { get;set; }
+        public DbSet<TbCourseReview> CourseReviews { get; set; }
         public DbSet<TbGrade> Grades { get; set; }
         public DbSet<TbInstructor> Instructors { get; set; }
         public DbSet<TbMterials> Mterials { get; set; }
-        public DbSet<TbSelectedChoice> SelectedChoices { get; set; }   
+        public DbSet<TbSelectedChoice> SelectedChoices { get; set; }
         public DbSet<TbSessionAttend> SessionAttends { get; set; }
-        public DbSet<TbStage>Stages { get; set; }
+        public DbSet<TbStage> Stages { get; set; }
         public DbSet<TbStudent> Students { get; set; }
         public DbSet<TbStudentAnswer> StudentAnswers { get; set; }
         public DbSet<TbStudentCourse> StudentCourses { get; set; }
         public DbSet<TbStudentTest> StudentTests { get; set; }
-        public DbSet<TbSubContent>SubContents { get; set; }
+        public DbSet<TbSubContent> SubContents { get; set; }
         public DbSet<TbSubject> Subjects { get; set; }
 
         public DbSet<TbSubSubject> SubSubjects { get; set; }
@@ -79,6 +85,10 @@ namespace MLSEF
         public DbSet<TbTerm> Terms { get; set; }
         public DbSet<TbTest> Tests { get; set; }
         public DbSet<TbTestQuestion> TestsQuestion { get; set; }
+
+        // New DbSets for Parent, ParentStudent, and Announcement entities
+        public DbSet<TbParent> Parents { get; set; }
+        public DbSet<TbAnnouncement> Announcements { get; set; }
 
     }
 }

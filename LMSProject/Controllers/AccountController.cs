@@ -25,6 +25,7 @@ namespace LMSProject.Controllers
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
+        //[AllowAnonymous]
         public async Task<IActionResult> Register()
         {
             List<SelectDropList> GradeList = (await _unitOfWork.Grades.FindAllAsyncDroplist(x => x.CurrentState == 1,
@@ -36,6 +37,7 @@ namespace LMSProject.Controllers
             return View(stVM);
         }
         [HttpPost]
+        //[AllowAnonymous]
         public async Task<IActionResult> Register(StudentVM model)
         {
             if (!ModelState.IsValid)
@@ -96,21 +98,32 @@ namespace LMSProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(
-                    model.EmailOrUsername,
-                    model.Password,
-                    model.RememberMe, 
-                    false
-                );
+                // Try to find user by email first
+                ApplicationUser user = await _usermanager.FindByEmailAsync(model.EmailOrUsername);
 
-                if (result.Succeeded)
+                // If not found by email, try by username
+                if (user == null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    user = await _usermanager.FindByNameAsync(model.EmailOrUsername);
                 }
 
-                ModelState.AddModelError("", "Invalid login attempt");
-            }
+                if (user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(
+                        user.UserName,
+                        model.Password,
+                        model.RememberMe,
+                        false
+                    );
 
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+
+                ModelState.AddModelError("", "Invalid email/username or password");
+            }
 
             return View(model);
         }

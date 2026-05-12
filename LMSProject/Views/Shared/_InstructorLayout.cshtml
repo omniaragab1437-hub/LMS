@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿@* <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>@ViewData["Title"] </title>
@@ -772,5 +772,208 @@
     <!-- endinject -->
     <!-- End custom js for this page -->
     @RenderSection("Scripts", false);
+</body>
+</html> *@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Instructor Dashboard</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/instructor.css" />
+    <link rel="stylesheet" href="~/css/student.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/assignments.css" asp-append-version="true" />
+
+</head>
+
+<body>
+
+    <div class="container-fluid p-0">
+
+        <!-- MOBILE HEADER -->
+        <div class="d-lg-none p-3 bg-white shadow-sm d-flex align-items-center justify-content-between">
+
+            <div class="d-flex align-items-center gap-2">
+                <img src="~/Images/images/logo_black.png"
+                     alt="Logo"
+                     style="height:30px;">
+            </div>
+
+            <button class="btn btn-primary"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#teacherSidebar">
+
+                <i class="fas fa-bars"></i>
+
+            </button>
+
+        </div>
+
+        <div class="d-flex">
+
+            <!-- SIDEBAR -->
+            <aside class="offcanvas-lg offcanvas-start sidebar shadow-sm"
+                   id="teacherSidebar">
+
+                <div class="offcanvas-header d-lg-none">
+
+                    <h5 class="offcanvas-title fw-bold text-primary">
+                        Teacher Panel
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="offcanvas">
+                    </button>
+
+                </div>
+
+                <div class="offcanvas-body d-flex flex-column p-4">
+
+                    <!-- PROFILE -->
+                    <h6 class="sidebar-heading">Profile</h6>
+
+                    <div class="menu-list mb-4">
+
+                        <a asp-area="Instructor"
+                               asp-controller="Profile"
+                               asp-action="Index"
+                               class="menu-item">
+
+                            <i class="fas fa-user"></i>
+                            <span>Personal Info</span>
+
+                        </a>
+
+                        <a asp-area="Instructor"
+                               asp-controller="Profile"
+                               asp-action="Password"
+                               class="menu-item">
+
+                            <i class="fas fa-lock"></i>
+                            <span>Change Password</span>
+
+                        </a>
+
+                    </div>
+
+                    <!-- COURSES -->
+                    <h6 class="sidebar-heading">Courses</h6>
+
+                    <div class="menu-list mb-4">
+
+                        <a asp-area="Instructor"
+                               asp-controller="Course"
+                               asp-action="Content"
+                               class="menu-item">
+
+                            <i class="fas fa-book"></i>
+                            <span>Course Content</span>
+
+                        </a>
+
+                        <a asp-area="Instructor"
+                               asp-controller="Exams"
+                               asp-action="Index"
+                               class="menu-item">
+
+                            <i class="fas fa-file-alt"></i>
+                            <span>Exams</span>
+
+                        </a>
+
+                        <!-- ASSIGNMENTS -->
+                        <a asp-area="Instructor"
+                               asp-controller="Tasks"
+                               asp-action="Index"
+                               class="menu-item">
+
+                            <i class="fas fa-tasks"></i>
+                            <span>Assignments</span>
+
+                        </a>
+
+                    </div>
+
+                    <!-- STUDENTS -->
+                    <h6 class="sidebar-heading">Students</h6>
+
+                    <div class="menu-list mb-4">
+
+                        <a asp-area="Instructor"
+                               asp-controller="Student"
+                               asp-action="Index"
+                               class="menu-item">
+                            <i class="fas fa-users"></i>
+                            <span>View Students</span>
+                        </a>
+
+                    </div>
+
+                    <!-- TICKETS -->
+                    <h6 class="sidebar-heading">Tickets</h6>
+
+                    <div class="menu-list mb-4">
+
+                        <a asp-area="Instructor"
+                               asp-controller="Tickets"
+                               asp-action="Index"
+                               class="menu-item">
+
+                            <i class="fas fa-envelope"></i>
+                            <span>All Tickets</span>
+
+                        </a>
+
+                        <div class="menu-sub-item">
+                            <i class="fas fa-exclamation-circle text-danger"></i>
+                            Complaints
+                        </div>
+
+                        <div class="menu-sub-item">
+                            <i class="fas fa-lightbulb text-warning"></i>
+                            Suggestions
+                        </div>
+
+                        <div class="menu-sub-item">
+                            <i class="fas fa-question-circle text-info"></i>
+                            Inquiries
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+            <!-- CONTENT -->
+            <main class="main-content flex-grow-1">
+
+                <div class="p-3 p-md-5">
+
+                    @RenderBody()
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", false)
+
 </body>
 </html>
